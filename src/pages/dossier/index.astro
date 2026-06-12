@@ -1,0 +1,263 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getEntry } from 'astro:content';
+
+const dossier = await getEntry('dossier', 'profile');
+const d       = dossier.data;
+---
+
+<Base
+  title="Dossier"
+  description="Professional dossier for Hadi Noori — research focus, credentials, competencies, and selected work in AI governance."
+  canonical="https://hadinoori.ca/dossier"
+  ogType="profile"
+>
+
+  <main class="page-wrapper">
+
+    <!-- PROFILE HEADER -->
+    <header class="profile-header fade-up">
+      <span class="doc-id">Strategic AI Governance</span>
+      <h1 class="profile-name">{d.profile.name}</h1>
+      <p class="profile-role">{d.profile.role}</p>
+    </header>
+
+    <!-- PROFILE BIO -->
+    <section class="dossier-block fade-up" style="animation-delay:0.1s">
+      <div class="block-label">Profile</div>
+      <div class="block-content live-spine">
+        <p>{d.profile.bio_p1}</p>
+        <p>{d.profile.bio_p2}</p>
+      </div>
+    </section>
+
+    <!-- CREDENTIALS -->
+    <section class="dossier-block fade-up" style="animation-delay:0.2s">
+      <div class="block-label">Credentials</div>
+      <div class="block-content">
+        {d.credentials.map(c => (
+          <div class="timeline-item">
+            <span class="item-year">{c.year}</span>
+            <div class="item-detail">
+              <h3>{c.degree}</h3>
+              <span>{c.institution} — {c.field}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- COMPETENCIES -->
+    <section class="dossier-block fade-up" style="animation-delay:0.3s">
+      <div class="block-label">Competencies</div>
+      <div class="block-content">
+        <div class="skills-grid">
+          {d.competencies.map(group => (
+            <div class="skill-group">
+              <h4 class="skill-group-title">{group.title}</h4>
+              <ul class="skill-list">
+                {group.items.map(item => <li>{item}</li>)}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTPUTS -->
+    <section class="dossier-block dossier-block--last fade-up" style="animation-delay:0.4s">
+      <div class="block-label">Key Output</div>
+      <div class="block-content">
+        {d.outputs.map(out => (
+          <div class="timeline-item">
+            <span class="item-year">{out.year}</span>
+            <div class="item-detail">
+              <h3>
+                {out.url
+                  ? <a href={out.url} target="_blank" rel="noopener noreferrer">{out.title}</a>
+                  : out.title
+                }
+              </h3>
+              <span>{out.role}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+  </main>
+
+</Base>
+
+<style>
+  .profile-header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 40px;
+    margin-bottom: 0;
+  }
+
+  .doc-id {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--live-text);
+    margin-bottom: 20px;
+  }
+
+  .profile-name {
+    font-size: clamp(2.8rem, 5vw, 4.2rem);
+    letter-spacing: -0.04em;
+    margin-bottom: 10px;
+  }
+
+  .profile-role {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* ── SECTION BLOCKS ─────────────────────────────────────── */
+  .dossier-block {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 48px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .dossier-block--last { border-bottom: none; }
+
+  .block-label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    text-align: right;
+    padding-top: 4px;
+  }
+
+  .block-content { color: var(--ink); }
+
+  .block-content p {
+    color: var(--ink-soft);
+    font-size: 1rem;
+    line-height: 1.75;
+    max-width: 640px;
+    margin-bottom: 20px;
+  }
+
+  .block-content p:last-child { margin-bottom: 0; }
+
+  /* ── TIMELINE ───────────────────────────────────────────── */
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 24px;
+    margin-bottom: 28px;
+    align-items: start;
+  }
+
+  .timeline-item:last-child { margin-bottom: 0; }
+
+  .item-year {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--live-text);
+    padding-top: 3px;
+  }
+
+  .item-detail h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+
+  .item-detail h3 a {
+    color: var(--ink);
+    border-bottom: 1px solid rgba(79, 110, 247, 0.4);
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .item-detail h3 a:hover {
+    color: var(--live-text);
+    border-color: var(--live-text);
+  }
+
+  .item-detail span {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--ink-soft);
+  }
+
+  /* ── SKILLS ─────────────────────────────────────────────── */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+  }
+
+  .skill-group-title {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 10px;
+    margin-bottom: 18px;
+  }
+
+  .skill-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  .skill-list li {
+    font-size: 0.93rem;
+    color: var(--ink-soft);
+    padding: 6px 0 6px 16px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .skill-list li:last-child { border-bottom: none; }
+
+  .skill-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: var(--live);
+  }
+
+  /* ── RESPONSIVE ─────────────────────────────────────────── */
+  @media (max-width: 768px) {
+    .dossier-block {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    .block-label { text-align: left; color: var(--live-text); }
+
+    .skills-grid { grid-template-columns: 1fr; gap: 32px; }
+  }
+
+  @media print {
+    .dossier-block { break-inside: avoid; }
+  }
+</style>

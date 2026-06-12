@@ -1,0 +1,195 @@
+---
+import Base from '../../layouts/Base.astro';
+---
+
+<Base
+  title="Contact"
+  description="Contact Hadi Noori for conversations on AI governance, digital transformation, algorithmic accountability, and responsible AI."
+  canonical="https://hadinoori.ca/contact"
+>
+
+  <main class="page-wrapper">
+
+    <header class="contact-header fade-up">
+      <h1>Get in <span class="live-underline">Touch</span></h1>
+      <p class="contact-sub">
+        Open to conversations on AI governance, research collaboration,
+        writing, and advisory work in responsible AI and digital transformation.
+      </p>
+    </header>
+
+    <div class="contact-entries">
+
+      <!-- EMAIL -->
+      <article class="contact-entry fade-up" style="animation-delay:0.1s">
+        <div class="entry-spine">
+          <span class="spine-label">Email</span>
+          <span class="spine-value">Direct</span>
+        </div>
+        <div class="entry-content">
+          <h2>Write to me</h2>
+          <p>
+            The best way to reach me for research discussions, collaboration
+            proposals, or advisory inquiries. I read everything and respond
+            to relevant messages.
+          </p>
+          <button class="btn btn--outline" id="email-btn">
+            Show Email Address
+          </button>
+        </div>
+      </article>
+
+      <!-- AVAILABILITY -->
+      <article class="contact-entry fade-up" style="animation-delay:0.2s">
+        <div class="entry-spine">
+          <span class="spine-label">Status</span>
+          <span class="spine-value">2026</span>
+        </div>
+        <div class="entry-content">
+          <h2>Current Focus</h2>
+          <p>
+            Currently focused on research, writing, and selected collaborations
+            in AI governance, digital transformation, and socio-technical risk.
+            New engagements are considered on a case-by-case basis.
+          </p>
+        </div>
+      </article>
+
+      <!-- NETWORK -->
+      <article class="contact-entry contact-entry--last fade-up" style="animation-delay:0.3s">
+        <div class="entry-spine">
+          <span class="spine-label">Network</span>
+          <span class="spine-value">Online</span>
+        </div>
+        <div class="entry-content">
+          <h2>Find me online</h2>
+          <p>LinkedIn for professional updates. GitHub for public work.</p>
+          <div class="social-links">
+            <a
+              href="https://www.linkedin.com/in/hadinoori"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--outline"
+            >
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/hadinoori"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="btn btn--outline"
+            >
+              GitHub
+            </a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </main>
+
+</Base>
+
+<script>
+  const btn = document.getElementById('email-btn');
+  if (btn) {
+    btn.addEventListener('click', () => {
+      window.location.href = 'mailto:noori.hadi@hotmail.com';
+    });
+  }
+</script>
+
+<style>
+  .contact-header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 40px;
+    margin-bottom: 0;
+  }
+
+  .contact-header h1 {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    letter-spacing: -0.04em;
+    margin-bottom: 20px;
+  }
+
+  .contact-sub {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 520px;
+    line-height: 1.65;
+  }
+
+  .contact-entry {
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 48px;
+    padding: 52px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .contact-entry--last { border-bottom: none; }
+
+  .entry-spine {
+    font-family: var(--font-mono);
+    text-align: right;
+    border-right: 2.5px solid var(--live);
+    padding-right: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .spine-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+
+  .spine-value {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .entry-content h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 14px;
+  }
+
+  .entry-content p {
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    max-width: 580px;
+    margin-bottom: 24px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  @media (max-width: 768px) {
+    .contact-entry {
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .entry-spine {
+      text-align: left;
+      border-right: none;
+      border-left: 2.5px solid var(--live);
+      padding-right: 0;
+      padding-left: 16px;
+      flex-direction: row;
+      align-items: baseline;
+      gap: 12px;
+    }
+  }
+</style>

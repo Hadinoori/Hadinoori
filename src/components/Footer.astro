@@ -1,0 +1,30 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <span class="brand-name">Hadi Noori</span>
+      <div class="footer-status">
+        SYSTEM STATUS: ONLINE <span class="status-dot" aria-hidden="true"></span><br />
+        SECTOR: GLOBAL<br />
+        LAST UPDATE: {year}
+      </div>
+    </div>
+
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a
+        href="https://linkedin.com/in/hadinoori"
+        target="_blank"
+        rel="noopener noreferrer"
+      >LinkedIn</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© {year} Hadi Noori. All rights reserved.</span>
+    <span>Strategic AI Governance Architecture</span>
+  </div>
+</footer>

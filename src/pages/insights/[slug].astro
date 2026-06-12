@@ -1,0 +1,182 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, getEntry } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('insights', ({ data }) =>
+    data.status !== 'draft'
+  );
+  return posts.map(post => ({
+    params: { slug: post.slug },
+    props:  { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const canonical = `https://hadinoori.ca/insights/${post.slug}`;
+const pubDate    = post.data.date.toLocaleDateString('en-US', {
+  year: 'numeric', month: 'long', day: 'numeric',
+});
+---
+
+<Base
+  title={post.data.title}
+  description={post.data.description}
+  canonical={canonical}
+  ogType="article"
+>
+
+  <main class="page-wrapper page-wrapper--narrow">
+    <a href="/insights" class="back-link">← Back to Archive</a>
+
+    <article>
+      <header class="post-header">
+        <span class="post-tag">Dispatch</span>
+        <h1 class="post-title">{post.data.title}</h1>
+        <time class="post-date" datetime={post.data.date.toISOString()}>
+          {pubDate}
+        </time>
+      </header>
+
+      {post.data.description && (
+        <div class="post-description live-spine">
+          <p>{post.data.description}</p>
+        </div>
+      )}
+
+      <div class="post-body">
+        <Content />
+      </div>
+    </article>
+  </main>
+
+</Base>
+
+<style>
+  .back-link {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 48px;
+    transition: color 0.2s;
+  }
+
+  .back-link:hover { color: var(--live-text); }
+
+  .post-header {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 32px;
+    margin-bottom: 40px;
+  }
+
+  .post-tag {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--live-text);
+    border: 1px solid rgba(79, 110, 247, 0.3);
+    padding: 4px 10px;
+    margin-bottom: 20px;
+  }
+
+  .post-title {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+
+  .post-date {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.5px;
+  }
+
+  .post-description {
+    margin-bottom: 56px;
+  }
+
+  .post-description p {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    line-height: 1.7;
+  }
+
+  /* ── MARKDOWN BODY ──────────────────────────────────────── */
+  .post-body { font-size: 1.05rem; line-height: 1.85; color: var(--ink); }
+
+  .post-body :global(h2) {
+    font-size: 1.7rem;
+    margin-top: 56px;
+    margin-bottom: 20px;
+    letter-spacing: -0.02em;
+  }
+
+  .post-body :global(h3) {
+    font-size: 1.25rem;
+    margin-top: 40px;
+    margin-bottom: 14px;
+  }
+
+  .post-body :global(p) { margin-bottom: 24px; }
+
+  .post-body :global(a) {
+    color: var(--live-text);
+    border-bottom: 1px solid rgba(79, 110, 247, 0.4);
+    transition: border-color 0.2s;
+  }
+
+  .post-body :global(a:hover) { border-color: var(--live-text); }
+
+  .post-body :global(ul),
+  .post-body :global(ol) {
+    padding-left: 28px;
+    margin-bottom: 24px;
+  }
+
+  .post-body :global(li) { margin-bottom: 8px; }
+
+  .post-body :global(blockquote) {
+    border-left: 2.5px solid var(--live);
+    padding-left: 20px;
+    margin: 32px 0;
+    color: var(--ink-soft);
+    font-style: italic;
+  }
+
+  .post-body :global(code) {
+    font-family: var(--font-mono);
+    font-size: 0.88em;
+    background: rgba(10, 22, 40, 0.05);
+    padding: 2px 6px;
+  }
+
+  .post-body :global(pre) {
+    background: rgba(10, 22, 40, 0.05);
+    padding: 24px;
+    overflow-x: auto;
+    margin: 32px 0;
+  }
+
+  .post-body :global(pre code) {
+    background: none;
+    padding: 0;
+  }
+
+  .post-body :global(hr) {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+  }
+</style>

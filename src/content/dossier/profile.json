@@ -1,0 +1,59 @@
+{
+  "profile": {
+    "name": "Hadi Noori",
+    "role": "AI Governance Researcher",
+    "bio_p1": "Researching the intersection of algorithmic accountability and institutional policy. Focused on building defensible governance frameworks for high-stakes AI deployment, with attention to emerging global standards including the EU AI Act and NIST AI RMF.",
+    "bio_p2": "Graduate work in Information Systems Management with a focus on digital transformation failure modes. Writing and advising on the socio-technical conditions that determine whether AI adoption strengthens or undermines institutional trust."
+  },
+  "credentials": [
+    {
+      "year": "2025",
+      "degree": "Master of Science",
+      "institution": "",
+      "field": "Information Systems Management — Thesis: Socio-Political Dimensions of Digital Transformation Failure"
+    },
+    {
+      "year": "2022",
+      "degree": "Bachelor of Technology",
+      "institution": "",
+      "field": "System Analysis & Design, Network Architecture"
+    }
+  ],
+  "competencies": [
+    {
+      "title": "Governance & Risk",
+      "items": [
+        "Algorithmic Auditing Protocols",
+        "Regulatory Compliance (EU AI Act)",
+        "Risk Stratification",
+        "Ethical Deployment Strategy"
+      ]
+    },
+    {
+      "title": "Technical & Systems",
+      "items": [
+        "Failure Mode Analysis (FMEA)",
+        "System Dynamics Modeling",
+        "Data Privacy Architecture",
+        "Socio-Technical Risk Assessment"
+      ]
+    }
+  ],
+  "outputs": [
+    {
+      "year": "2026",
+      "title": "The AI Ethics Playbook",
+      "role": "Lead Author — Operational Protocol"
+    },
+    {
+      "year": "2025",
+      "title": "Socio-Political Failures in Digital Transformation",
+      "role": "Graduate Research — Thesis"
+    },
+    {
+      "year": "2024",
+      "title": "Algorithmic Bias Audit Framework",
+      "role": "Independent Research — Beta Version"
+    }
+  ]
+}

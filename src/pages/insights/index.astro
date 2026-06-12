@@ -1,0 +1,174 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('insights', ({ data }) =>
+  data.status === 'published'
+);
+
+const sorted = posts.sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+);
+---
+
+<Base
+  title="Insights"
+  description="Essays and research notes on AI governance, algorithmic accountability, fairness, digital transformation, and socio-technical risk."
+  canonical="https://hadinoori.ca/insights"
+>
+
+  <main class="page-wrapper">
+    <header class="archive-header">
+      <h1 class="archive-title">Intelligence Dispatch</h1>
+      <p class="archive-sub">
+        Research notes and analysis on AI governance, accountability,
+        and the socio-technical conditions of high-stakes deployment.
+      </p>
+    </header>
+
+    <div class="archive-list">
+      {sorted.map((post, i) => {
+        const href = post.data.external_url ?? `/insights/${post.slug}`;
+        const isExternal = !!post.data.external_url;
+        const delay = Math.min(i * 0.08, 0.6).toFixed(2);
+
+        return (
+          <article
+            class="entry fade-up"
+            style={`animation-delay: ${delay}s`}
+          >
+            <div class="entry-meta">
+              <time
+                class="entry-date"
+                datetime={post.data.date.toISOString()}
+              >
+                {post.data.date.toLocaleDateString('en-US', {
+                  year: 'numeric', month: 'long', day: 'numeric',
+                })}
+              </time>
+            </div>
+
+            <div class="entry-body live-spine">
+              <h2 class="entry-title">
+                <a
+                  href={href}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                >
+                  {post.data.title}
+                </a>
+              </h2>
+
+              <p class="entry-desc">{post.data.description}</p>
+
+              <a
+                href={href}
+                class="read-more"
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+              >
+                Read Dispatch →
+              </a>
+            </div>
+          </article>
+        );
+      })}
+
+      {sorted.length === 0 && (
+        <p class="empty-state">No dispatches published yet.</p>
+      )}
+    </div>
+  </main>
+
+</Base>
+
+<style>
+  .archive-header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 40px;
+    margin-bottom: 0;
+  }
+
+  .archive-title {
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    letter-spacing: -0.04em;
+    margin-bottom: 16px;
+  }
+
+  .archive-sub {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 560px;
+    line-height: 1.65;
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 48px;
+    padding: 48px 0;
+    border-bottom: 1px solid var(--border);
+    align-items: start;
+  }
+
+  .entry-meta { padding-top: 4px; text-align: right; }
+
+  .entry-date {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+    letter-spacing: 0.5px;
+  }
+
+  .entry-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.25;
+    margin-bottom: 14px;
+  }
+
+  .entry-title a { transition: color 0.2s; }
+  .entry-title a:hover { color: var(--live-text); }
+
+  .entry-desc {
+    font-size: 0.98rem;
+    color: var(--ink-soft);
+    line-height: 1.7;
+    max-width: 620px;
+    margin-bottom: 18px;
+  }
+
+  .read-more {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    color: var(--live-text);
+    border-bottom: 1px solid var(--live-text);
+    padding-bottom: 2px;
+    width: fit-content;
+    transition: opacity 0.2s;
+  }
+
+  .read-more:hover { opacity: 0.7; }
+
+  .empty-state {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--ink-muted);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    padding: 60px 0;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .entry {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .entry-meta { text-align: left; }
+  }
+</style>

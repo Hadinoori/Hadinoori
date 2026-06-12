@@ -1,0 +1,72 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogType?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description,
+  canonical = Astro.url.href,
+  ogType = 'website',
+  noindex = false,
+} = Astro.props;
+
+const siteUrl   = 'https://hadinoori.ca';
+const siteImage = `${siteUrl}/assets/img/og-image.png`;
+const fullTitle = title === 'Hadi Noori'
+  ? 'Hadi Noori | AI Governance & Digital Transformation'
+  : `${title} | Hadi Noori`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0A1628" />
+
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <meta name="author" content="Hadi Noori" />
+  {noindex
+    ? <meta name="robots" content="noindex, follow" />
+    : <meta name="robots" content="index, follow" />
+  }
+  <link rel="canonical" href={canonical} />
+
+  <meta property="og:site_name" content="Hadi Noori" />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={siteImage} />
+  <meta property="og:image:alt" content="Hadi Noori" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={siteImage} />
+
+  <link rel="icon" type="image/png" href="/assets/img/favicon.png" />
+  <link rel="sitemap" href="/sitemap.xml" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
+  <div class="grid-bg" aria-hidden="true"></div>
+  <Header />
+  <slot />
+  <Footer />
+</body>
+</html>

@@ -1,0 +1,82 @@
+backend:
+  name: github
+  repo: hadinoori/hadinoori-v2
+  branch: main
+
+site_url: "https://hadinoori.ca"
+display_url: "https://hadinoori.ca"
+
+media_folder: "public/assets/img"
+public_folder: "/assets/img"
+
+collections:
+  - name: "insights"
+    label: "Insights"
+    label_singular: "Insight"
+    folder: "src/content/insights"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    extension: "md"
+    format: "frontmatter"
+    preview_path: "insights/{{slug}}"
+    fields:
+      - { label: "Title",        name: "title",        widget: "string" }
+      - { label: "Date",         name: "date",          widget: "datetime",
+          format: "YYYY-MM-DDTHH:mm:ss" }
+      - label: "Status"
+        name: "status"
+        widget: "select"
+        options: ["draft", "published", "archived"]
+        default: "draft"
+      - { label: "Featured on Homepage", name: "featured", widget: "boolean",
+          default: false }
+      - { label: "Description",  name: "description",   widget: "text" }
+      - { label: "External URL", name: "external_url",  widget: "string",
+          required: false,
+          hint: "Leave empty for local posts. Only for external articles." }
+      - { label: "Tags",         name: "tags",          widget: "list",
+          required: false }
+      - { label: "Body",         name: "body",          widget: "markdown",
+          required: false }
+
+  - name: "dossier"
+    label: "Dossier"
+    files:
+      - name: "profile"
+        label: "Profile"
+        file: "src/content/dossier/profile.json"
+        fields:
+          - label: "Profile"
+            name: "profile"
+            widget: "object"
+            fields:
+              - { label: "Name",  name: "name", widget: "string" }
+              - { label: "Role",  name: "role", widget: "string" }
+              - { label: "Bio — paragraph 1", name: "bio_p1", widget: "text" }
+              - { label: "Bio — paragraph 2", name: "bio_p2", widget: "text" }
+          - label: "Credentials"
+            name: "credentials"
+            widget: "list"
+            fields:
+              - { label: "Year",        name: "year",        widget: "string" }
+              - { label: "Degree",      name: "degree",      widget: "string" }
+              - { label: "Institution", name: "institution", widget: "string" }
+              - { label: "Field",       name: "field",       widget: "string" }
+          - label: "Competencies"
+            name: "competencies"
+            widget: "list"
+            fields:
+              - { label: "Group title", name: "title", widget: "string" }
+              - label: "Items"
+                name: "items"
+                widget: "list"
+                field: { label: "Item", name: "item", widget: "string" }
+          - label: "Key Outputs"
+            name: "outputs"
+            widget: "list"
+            fields:
+              - { label: "Year",  name: "year",  widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+              - { label: "Role",  name: "role",  widget: "string" }
+              - { label: "URL",   name: "url",   widget: "string",
+                  required: false }

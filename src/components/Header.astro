@@ -1,0 +1,26 @@
+---
+const pathname = Astro.url.pathname;
+
+function isActive(path: string): boolean {
+  if (path === '/') return pathname === '/';
+  return pathname.startsWith(path);
+}
+---
+
+<header class="site-header">
+  <a href="/" class="brand" aria-label="Hadi Noori — home">
+    <span class="brand-name">Hadi Noori</span>
+    <span class="brand-tag">Strategic Governance</span>
+  </a>
+
+  <nav class="site-nav" aria-label="Main navigation">
+    <a href="/insights" class:list={['nav-link', { active: isActive('/insights') }]}>
+      Insights
+    </a>
+    <a href="/dossier" class:list={['nav-link', { active: isActive('/dossier') }]}>
+      Dossier
+    </a>
+  </nav>
+
+  <a href="/contact" class="header-cta">Inquiry</a>
+</header>
